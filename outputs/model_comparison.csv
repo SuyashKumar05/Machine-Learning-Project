@@ -1,0 +1,4 @@
+Model,Accuracy
+Naive Bayes,60.24
+Logistic Regression,61.85
+SVM,59.92

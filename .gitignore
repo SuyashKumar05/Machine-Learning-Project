@@ -1,0 +1,23 @@
+# Original and cleaned datasets
+data/
+outputs/cleaned_sentiment_dataset.csv
+
+# Generated feature files
+outputs/features/
+
+# Trained model files
+outputs/models/
+outputs/tuned_models/
+
+# Keep graphs and model comparison results
+outputs/*
+!outputs/graphs/
+!outputs/model_comparison.csv
+!outputs/tuned_model_comparison.csv
+
+# Ignore temporary and Python cache files
+tempCodeRunnerFile.py
+__pycache__/
+*.pyc
+.venv/
+venv/
