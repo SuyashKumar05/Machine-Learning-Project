@@ -14,8 +14,12 @@ df = df.iloc[1:].reset_index(drop=True)
 # 3. Remove repeated header rows
 df = df[df["sentiment"] != "sentiment"].copy()
 
+print("Records after removing repeated headers:", len(df))
+
 # 4. Keep important columns
 df = df[["text", "sentiment", "translated_text", "cleaned_text"]]
+
+print("Records after selecting columns:", len(df))
 
 # 5. Remove extra spaces
 for column in df.columns:
@@ -23,11 +27,13 @@ for column in df.columns:
         lambda x: x.strip() if isinstance(x, str) else x
     )
 
+print("Records after stripping spaces:", len(df))
+
 # 6. Remove empty original text
 before = len(df)
 
-df = df.dropna(subset=["text"])
-df = df[df["text"] != ""]
+df = df[df["text"].notna()]
+df = df[df["text"].str.strip() != ""]
 
 print("Empty text records removed:", before - len(df))
 
