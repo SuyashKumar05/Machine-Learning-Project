@@ -1,0 +1,4 @@
+Model,Word-Level TF-IDF,Character-Level TF-IDF,Difference
+Naive Bayes,60.24,57.37,-2.87
+Logistic Regression,61.85,62.59,0.74
+SVM,59.92,61.74,1.82
