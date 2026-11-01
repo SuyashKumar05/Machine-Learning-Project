@@ -15,6 +15,7 @@ outputs/*
 !outputs/model_comparison.csv
 !outputs/tuned_model_comparison.csv
 !outputs/feature_method_comparison.csv
+!outputs/char_tuned_model_comparison.csv
 # Ignore temporary and Python cache files
 tempCodeRunnerFile.py
 __pycache__/
