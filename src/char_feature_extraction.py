@@ -8,13 +8,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from scipy.sparse import save_npz
 
-# 1. Load cleaned dataset
 df = pd.read_csv("outputs/cleaned_sentiment_dataset.csv")
 
-# 2. Remove missing text and sentiment
+
 df = df.dropna(subset=["text", "sentiment"])
 
-# 3. Simple text preprocessing
+# text preprocessing
 def clean_text(text):
     text = str(text).lower()
     text = re.sub(r"\s+", " ", text)
@@ -22,11 +21,11 @@ def clean_text(text):
 
 df["text"] = df["text"].apply(clean_text)
 
-# 4. Separate text and sentiment
+#text and sentiment
 X = df["text"]
 y = df["sentiment"]
 
-# 5. Split dataset into training and testing sets
+#
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -35,7 +34,7 @@ X_train, X_test, y_train, y_test = train_test_split(
     stratify=y
 )
 
-# 6. Create character-level TF-IDF
+# 6character-level TF-IDF
 vectorizer = TfidfVectorizer(
     analyzer="char",
     ngram_range=(2, 5),
@@ -43,30 +42,29 @@ vectorizer = TfidfVectorizer(
     min_df=2
 )
 
-# 7. Fit vectorizer on training data
+#Fit vectorizer on training data
 X_train_tfidf = vectorizer.fit_transform(X_train)
 
-# 8. Transform testing data
+#Transform testing data
 X_test_tfidf = vectorizer.transform(X_test)
 
-# 9. Create output folders
+# output folders
 os.makedirs("outputs/features", exist_ok=True)
 
-# 10. Save feature matrices
+#Save feature matrices
 save_npz("outputs/features/X_train_char_tfidf.npz", X_train_tfidf)
 save_npz("outputs/features/X_test_char_tfidf.npz", X_test_tfidf)
 
-# 11. Save target labels
+
 y_train.to_csv("outputs/features/y_train_char.csv", index=False)
 y_test.to_csv("outputs/features/y_test_char.csv", index=False)
 
-# 12. Save vectorizer
+#saving vectorizer
 joblib.dump(
     vectorizer,
     "outputs/features/char_tfidf_vectorizer.pkl"
 )
 
-# 13. Display results
 print("Character-level TF-IDF completed successfully!")
 
 print("\nOriginal dataset shape:", df.shape)

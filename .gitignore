@@ -9,16 +9,28 @@ outputs/features/
 outputs/models/
 outputs/tuned_models/
 
-# Keep graphs and model comparison results
+# Keep graphs and evaluation reports
 outputs/*
 !outputs/graphs/
+!outputs/evaluation/
+!outputs/evaluation/**
+
+# Keep model comparison results
 !outputs/model_comparison.csv
 !outputs/tuned_model_comparison.csv
 !outputs/feature_method_comparison.csv
 !outputs/char_tuned_model_comparison.csv
-# Ignore temporary and Python cache files
+!outputs/char_model_comparison.csv
+
+
+# Temporary and Python cache files
 tempCodeRunnerFile.py
 __pycache__/
 *.pyc
 .venv/
 venv/
+
+# Keep CatBoost experiments local only
+src/catboost*.py
+outputs/catboost*.csv
+outputs/graphs/catboost*.png

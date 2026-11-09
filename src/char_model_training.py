@@ -17,14 +17,13 @@ from sklearn.metrics import (
 
 import matplotlib.pyplot as plt
 
-# 1. Load character-level TF-IDF features
 X_train = load_npz("outputs/features/X_train_char_tfidf.npz")
 X_test = load_npz("outputs/features/X_test_char_tfidf.npz")
 
 y_train = pd.read_csv("outputs/features/y_train_char.csv").iloc[:, 0]
 y_test = pd.read_csv("outputs/features/y_test_char.csv").iloc[:, 0]
 
-# 2. Define models
+# models
 models = {
     "Naive Bayes": MultinomialNB(alpha=1.0),
 
@@ -36,13 +35,13 @@ models = {
     "SVM": LinearSVC(random_state=42)
 }
 
-# 3. Create output folders
+#output folders
 os.makedirs("outputs/models", exist_ok=True)
 os.makedirs("outputs/graphs", exist_ok=True)
 
 results = []
 
-# 4. Train and evaluate each model
+#Train and evaluate
 for name, model in models.items():
 
     print("\nTraining:", name)
@@ -58,7 +57,7 @@ for name, model in models.items():
     print("\nClassification Report:")
     print(classification_report(y_test, predictions))
 
-    # Save trained model
+
     filename = name.lower().replace(" ", "_")
 
     joblib.dump(
@@ -66,7 +65,7 @@ for name, model in models.items():
         f"outputs/models/{filename}_char.pkl"
     )
 
-    # Save confusion matrix
+    
     cm = confusion_matrix(
         y_test,
         predictions,
@@ -88,13 +87,13 @@ for name, model in models.items():
 
     plt.close()
 
-    # Store results
+    ##
     results.append({
         "Model": name,
         "Accuracy": round(accuracy * 100, 2)
     })
 
-# 5. Save model comparison
+#model comparison
 results_df = pd.DataFrame(results)
 
 results_df = results_df.sort_values(

@@ -1,0 +1,12 @@
+Model,Accuracy,Precision,Recall,Macro F1,Weighted F1
+Tuned Character SVM,62.68,0.6285,0.6228,0.6246,0.6262
+Character Logistic Regression,62.59,0.6271,0.6222,0.6239,0.6254
+Tuned Character Logistic Regression,62.59,0.6271,0.6222,0.6239,0.6254
+Tuned Word SVM,61.99,0.622,0.6157,0.6177,0.6193
+Tuned Word Logistic Regression,61.85,0.6202,0.6146,0.6165,0.618
+Word Logistic Regression,61.85,0.6202,0.6146,0.6165,0.618
+Character SVM,61.74,0.6169,0.6153,0.616,0.6172
+Tuned Word NB,60.39,0.6057,0.6018,0.6031,0.6035
+Word NB,60.24,0.6059,0.5991,0.6012,0.6019
+Word SVM,59.92,0.599,0.5975,0.5981,0.5992
+Character NB,57.37,0.5818,0.5678,0.571,0.5726
