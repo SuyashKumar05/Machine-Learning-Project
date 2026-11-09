@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# 1. Store word-level and character-level results
+#word-level and character-level results
 data = {
     "Model": [
         "Naive Bayes",
@@ -20,13 +20,13 @@ data = {
 
 df = pd.DataFrame(data)
 
-# 2. Calculate improvement
+#model improvement
 df["Difference"] = (
     df["Character-Level TF-IDF"] -
     df["Word-Level TF-IDF"]
 ).round(2)
 
-# 3. Save comparison results
+#comparison results
 os.makedirs("outputs/graphs", exist_ok=True)
 
 df.to_csv(
@@ -34,7 +34,7 @@ df.to_csv(
     index=False
 )
 
-# 4. Create comparison graph
+#comparison graph
 df.plot(
     x="Model",
     y=["Word-Level TF-IDF", "Character-Level TF-IDF"],
@@ -56,7 +56,7 @@ plt.savefig(
 
 plt.show()
 
-# 5. Display comparison
+
 print("\nFeature Extraction Method Comparison:")
 print(df.to_string(index=False))
 

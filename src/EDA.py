@@ -3,15 +3,14 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# 1. Load cleaned dataset
 df = pd.read_csv("outputs/cleaned_sentiment_dataset.csv")
 
 print("Dataset shape:", df.shape)
 
-# Create output folder for graphs
+#folder for graphs
 os.makedirs("outputs/graphs", exist_ok=True)
 
-# 2. Sentiment distribution
+#Sentiment distribution
 sentiment_counts = df["sentiment"].value_counts()
 
 print("\nSentiment Distribution:")
@@ -29,7 +28,7 @@ plt.tight_layout()
 plt.savefig("outputs/graphs/sentiment_distribution.png")
 plt.show()
 
-# 3. Calculate text length
+#calculate text length
 df["text_length"] = df["text"].astype(str).apply(len)
 
 print("\nText Length Statistics:")
@@ -46,7 +45,7 @@ plt.tight_layout()
 plt.savefig("outputs/graphs/text_length_distribution.png")
 plt.show()
 
-# 4. Calculate word count
+# Calculate word count
 df["word_count"] = df["text"].astype(str).apply(
     lambda x: len(x.split())
 )

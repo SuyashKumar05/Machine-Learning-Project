@@ -10,17 +10,17 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.metrics import accuracy_score, classification_report
 
-# 1. Load character-level TF-IDF features
+#character-level TF-IDF features
 X_train = load_npz("outputs/features/X_train_char_tfidf.npz")
 X_test = load_npz("outputs/features/X_test_char_tfidf.npz")
 
 y_train = pd.read_csv("outputs/features/y_train_char.csv").iloc[:, 0]
 y_test = pd.read_csv("outputs/features/y_test_char.csv").iloc[:, 0]
 
-# 2. Create output folder
+#output folder
 os.makedirs("outputs/tuned_models", exist_ok=True)
 
-# 3. Define parameter grids
+#parameter grids
 models = {
     "Logistic Regression": (
         LogisticRegression(max_iter=1000, random_state=42),
@@ -35,7 +35,7 @@ models = {
 
 results = []
 
-# 4. Tune each model
+#tune each model
 for name, (model, parameters) in models.items():
 
     print("\nTuning:", name)
@@ -52,7 +52,7 @@ for name, (model, parameters) in models.items():
 
     best_model = grid.best_estimator_
 
-    # 5. Evaluate on test data
+    #Evaluate
     predictions = best_model.predict(X_test)
 
     accuracy = accuracy_score(y_test, predictions)
@@ -64,7 +64,7 @@ for name, (model, parameters) in models.items():
     print("\nClassification Report:")
     print(classification_report(y_test, predictions))
 
-    # 6. Save tuned model
+    #Save
     filename = name.lower().replace(" ", "_")
 
     joblib.dump(
@@ -79,7 +79,7 @@ for name, (model, parameters) in models.items():
         "Test Accuracy": round(accuracy * 100, 2)
     })
 
-# 7. Save comparison
+#comparison
 results_df = pd.DataFrame(results)
 
 results_df.to_csv(

@@ -12,14 +12,14 @@ from sklearn.svm import LinearSVC
 
 from sklearn.metrics import accuracy_score, classification_report
 
-# 1. Load TF-IDF features
+#load TF-IDF features
 X_train = load_npz("outputs/features/X_train_tfidf.npz")
 X_test = load_npz("outputs/features/X_test_tfidf.npz")
 
 y_train = pd.read_csv("outputs/features/y_train.csv").iloc[:, 0]
 y_test = pd.read_csv("outputs/features/y_test.csv").iloc[:, 0]
 
-# 2. Define models and parameter combinations
+#models and parameter combinations
 models = {
     "Naive Bayes": (
         MultinomialNB(),
@@ -41,7 +41,7 @@ results = []
 
 os.makedirs("outputs/tuned_models", exist_ok=True)
 
-# 3. Perform hyperparameter tuning
+#hyperparameter tuning
 for name, (model, params) in models.items():
 
     print("\n==============================")
@@ -61,7 +61,7 @@ for name, (model, params) in models.items():
     # Best model
     best_model = grid.best_estimator_
 
-    # Test the best model
+    #testing above model
     predictions = best_model.predict(X_test)
 
     accuracy = accuracy_score(y_test, predictions)
@@ -73,7 +73,7 @@ for name, (model, params) in models.items():
     print("\nClassification Report:")
     print(classification_report(y_test, predictions))
 
-    # Save tuned model
+    #Saving
     filename = name.lower().replace(" ", "_") + "_tuned.pkl"
 
     joblib.dump(
@@ -88,10 +88,10 @@ for name, (model, params) in models.items():
         "Test Accuracy": round(accuracy * 100, 2)
     })
 
-# 4. Save comparison
+#Save comparison
 results_df = pd.DataFrame(results)
 
-print("\n========== TUNED MODEL COMPARISON ==========")
+print("\n=== TUNED MODEL COMPARISON ====")
 print(results_df.to_string(index=False))
 
 results_df.to_csv(

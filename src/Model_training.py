@@ -17,18 +17,18 @@ from sklearn.metrics import (
     ConfusionMatrixDisplay
 )
 
-# 1. Load TF-IDF features
+
 X_train = load_npz("outputs/features/X_train_tfidf.npz")
 X_test = load_npz("outputs/features/X_test_tfidf.npz")
 
-# 2. Load sentiment labels
+#sentiment labels
 y_train = pd.read_csv("outputs/features/y_train.csv").iloc[:, 0]
 y_test = pd.read_csv("outputs/features/y_test.csv").iloc[:, 0]
 
 print("Training data:", X_train.shape)
 print("Testing data:", X_test.shape)
 
-# 3. Create machine learning models
+#machine learning models
 models = {
     "Naive Bayes": MultinomialNB(),
 
@@ -39,23 +39,23 @@ models = {
     "SVM": LinearSVC()
 }
 
-# Create output folders
+#
 os.makedirs("outputs/models", exist_ok=True)
 os.makedirs("outputs/graphs", exist_ok=True)
 
 results = []
 
-# 4. Train and evaluate each model
+# 4. Train and evaluate
 for name, model in models.items():
 
     print("\n------------------------------")
     print("Model:", name)
     print("------------------------------")
 
-    # Train model
+   
     model.fit(X_train, y_train)
 
-    # Predict test data
+    
     y_pred = model.predict(X_test)
 
     # Calculate accuracy
@@ -67,13 +67,13 @@ for name, model in models.items():
     print("\nClassification Report:")
     print(classification_report(y_test, y_pred))
 
-    # Save model
+    
     joblib.dump(
         model,
         "outputs/models/" + name.lower().replace(" ", "_") + ".pkl"
     )
 
-    # Create confusion matrix
+    
     cm = confusion_matrix(
         y_test,
         y_pred,
@@ -95,7 +95,7 @@ for name, model in models.items():
     )
     plt.show()
 
-    # Store accuracy
+    #save accuracy
     results.append({
         "Model": name,
         "Accuracy": round(accuracy * 100, 2)
@@ -103,7 +103,7 @@ for name, model in models.items():
 
 results_df = pd.DataFrame(results)
 
-print("\n========== MODEL COMPARISON ==========")
+print("\n=== MODEL COMPARISON ===")
 print(results_df)
 
 results_df.to_csv(
